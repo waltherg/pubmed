@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, url_for, redirect
 from summarize import summarize
+import requests
+from lxml import etree
+from bs4 import BeautifulSoup as BS
 
 app = Flask(__name__)
 
@@ -9,7 +12,20 @@ def index():
 
 @app.route('/<int:pmid>')
 def get_summary(pmid=None):
-    return summarize(None, pmid)
+    r = requests.get('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
+                       'elink.fcgi?dbfrom=pubmed&id=%d&cmd=prlinks'
+                       '&retmode=json' % pmid)
+    
+    body = None
+    if r.status_code == 200:
+        xml = etree.fromstring(r.text)
+        url = xml.xpath('//Url')[0].text
+        full_text_r = requests.get(url)
+        article = BS(full_text_r.text)
+        paragraphs = article.findAll(['p'])
+        body = ' '.join([p.text for p in paragraphs])
+
+    return summarize(body, pmid)
 
 @app.route('/search', methods=['POST', 'GET'])
 def search():
