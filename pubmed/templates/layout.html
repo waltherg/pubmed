@@ -38,13 +38,13 @@
         <div class="navbar navbar-default" role="navigation">
           <div class="navbar-header">
             <div class="container">
-              <a class="navbar-brand" href="/">tldrmed.georg.io</a>
+              <a class="navbar-brand" href="/">pubmed.georg.io</a>
+              <form action="/search" method="POST">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="PubMed ID (PMID)">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">Search</button>
-                </span>
+                  <input name="pmid" type="text" class="form-control" placeholder="PubMed ID (PMID)">
+                  <button type="submit" class="btn">Search</button>
               </div><!-- /input-group -->
+              </form>
             </div>
           </div>
         </div>
