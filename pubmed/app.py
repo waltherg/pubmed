@@ -19,7 +19,10 @@ def get_summary(pmid=None):
     body = None
     if r.status_code == 200:
         xml = etree.fromstring(r.text)
-        url = xml.xpath('//Url')[0].text
+        try:
+            url = xml.xpath('//Url')[0].text
+        except:
+            return('PubMed provided no fulltext URL for PMID %d' %pmid)
         full_text_r = requests.get(url)
         article = BS(full_text_r.text)
         paragraphs = article.findAll(['p'])
