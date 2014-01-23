@@ -28,7 +28,9 @@ def get_summary(pmid=None):
         paragraphs = article.findAll(['p'])
         body = ' '.join([p.text for p in paragraphs])
 
-    return summarize(body, pmid)
+    summary = summarize(body, pmid)
+    
+    return render_template('tldrmed.html', article_summary=summary)
 
 @app.route('/search', methods=['POST', 'GET'])
 def search():

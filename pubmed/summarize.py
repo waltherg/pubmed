@@ -29,6 +29,6 @@ def summarize(body, pmid):
 
     summary_string = ''
     for s in summary:
-        summary_string += '<p>'+s+'</p>'
+        summary_string += s+'\n'
 
     return summary_string
