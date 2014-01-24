@@ -53,8 +53,4 @@ def summarize(body, pmid):
             if tag == 'PPSS' and word.lower() == 'we':
                 summary.append(' '.join(nltk.tag.untag(sentence)))
 
-    summary_string = ''
-    for s in summary:
-        summary_string += s+'\n'
-
-    return summary_string
+    return summary
