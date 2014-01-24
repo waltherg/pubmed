@@ -1,4 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
-{{ article_summary }}
+{% if article_url %}
+<h1><a href="https://en.wikipedia.org/wiki/Wikipedia:Too_long;_didn%27t_read">
+    TLDR</a>Med Summary for PMID {{ request_pmid }}</h1>
+<h2><a href="{{ article_url }}">Link to Article Provided by PubMed</a></h2>
+<h3>The following is an automatically generated summary, based on
+  <a href="http://georg.io/2014/01/PLoS_Biology_Author_Action">
+    my blog post</a>.
+  <a href="https://twitter.com/tldrmed">Get in touch</a>!
+</h3>
+{% endif %}
+<div id="article-summary">
+  {% for sentence in article_summary %}
+  <p>{{ sentence }}</p>
+  {% endfor %}
+</div>
 {% endblock content %}
